@@ -1,0 +1,78 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ChatLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    tools:context=".Chat" >
+    
+    <RelativeLayout 
+        android:id="@+id/login_top_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/title_bar">
+        <Button
+            android:id="@+id/chat_reback_btn"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="返回"
+            android:textSize="14sp"
+            android:textColor="#fff"
+            android:onClick="login_back"
+            android:background="@drawable/title_btn_back"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:text="聊天中"
+           />
+        
+    </RelativeLayout>
+    
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="12">
+	     <ListView
+	        android:id="@+id/msgList"
+	        
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" >
+    	</ListView>
+	</LinearLayout>
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginBottom="0dp"
+	   >
+
+	    <EditText
+	        android:id="@+id/editText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="4.00"
+	        android:layout_marginBottom="0dp"
+	        android:text="" 
+	        android:background="@drawable/login_editbox"
+	    	android:hint="请输入文字">
+
+	    </EditText>
+	      <Button
+	        android:id="@+id/send"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:layout_marginBottom="0dp"
+	         android:background="@drawable/btn_style_green"
+	        android:textColor="#ffffff"
+	        android:text="send" />
+	</LinearLayout>
+ 
+</LinearLayout>

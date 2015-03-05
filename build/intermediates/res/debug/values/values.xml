@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/D:/AS_Workspace/MobileApp/LetsChat/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="shadow_width"> 15dp</dimen>
+    <dimen name="slidingmenu_offset"> 200dp</dimen>
+    <!-- From: file:/D:/AS_Workspace/MobileApp/LetsChat/res/values/strings_activity_login.xml -->
+    <eat-comment/>
+    <string name="action_forgot_password">Recover lost password</string>
+    <!-- From: file:/D:/AS_Workspace/MobileApp/LetsChat/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="action_settings">Settings</string>
+    <!-- From: file:/D:/AS_Workspace/MobileApp/LetsChat/res/values/strings_activity_login.xml -->
+    <eat-comment/>
+    <string name="action_sign_in_register"><b>Sign in</b></string>
+    <string name="action_sign_in_short">Sign in</string>
+    <!-- From: file:/D:/AS_Workspace/MobileApp/LetsChat/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="app_name">LetsChat</string>
+    <!-- From: file:/D:/AS_Workspace/MobileApp/LetsChat/res/values/strings_activity_login.xml -->
+    <eat-comment/>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <!-- From: file:/D:/AS_Workspace/MobileApp/LetsChat/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="hello_world">Hello world!</string>
+    <!-- From: file:/D:/AS_Workspace/MobileApp/LetsChat/res/values/strings_activity_login.xml -->
+    <eat-comment/>
+    <string name="login_progress_signing_in">Signing in…</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_user">username</string>
+    <!-- From: file:/D:/AS_Workspace/MobileApp/LetsChat/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="title_activity_add_user">AddUserActivity</string>
+    <string name="title_activity_chat">Chat</string>
+    <string name="title_activity_first">FirstActivity</string>
+    <string name="title_activity_friendlist">Friendlist</string>
+    <!-- From: file:/D:/AS_Workspace/MobileApp/LetsChat/res/values/strings_activity_login.xml -->
+    <eat-comment/>
+    <string name="title_activity_login">Sign in</string>
+    <!-- From: file:/D:/AS_Workspace/MobileApp/LetsChat/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="title_activity_logout">LogoutAct</string>
+    <string name="title_activity_main_chat">MainChat</string>
+    <string name="title_activity_main_frame">MainFrame</string>
+    <string name="title_activity_me">Me</string>
+    <string name="title_activity_regist">RegistActivity</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
+    <!-- From: file:/D:/AS_Workspace/MobileApp/LetsChat/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="AnimFade" parent="@android:style/Animation.Activity">  
+    	<item name="android:activityOpenEnterAnimation">@anim/fade_in</item>  
+    	<item name="android:activityOpenExitAnimation">@anim/hold</item>        
+    	<item name="android:activityCloseEnterAnimation">@anim/fade_in</item>  
+    	<item name="android:activityCloseExitAnimation">@anim/fade_out</item> 
+	</style>
+    <style name="Anim_style2" parent="android:Theme.NoTitleBar">         
+        <item name="android:windowAnimationStyle">@style/AnimFade</item>       
+	</style>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="LoginFormContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
+    </style>
+    <style name="MyDialogStyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+</resources>

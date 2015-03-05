@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/msgitem"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout 
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal">
+        <TextView 
+        android:id="@+id/sender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="sender"
+        android:textColor="#00000000"/>
+	    <TextView 
+	        android:id="@+id/time"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="time"
+	        android:textColor="#00000000"/>
+	    <TextView 
+	        android:id="@+id/msg"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="msg"
+	        android:textColor="#00000000"/>
+    </LinearLayout>
+</LinearLayout>
