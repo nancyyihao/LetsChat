@@ -18,23 +18,23 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.main.letschat.WelcomeActivity"
+            android:name="com.main.letschat.StartActivity"
             android:text="welcome" >
         </activity>
         <activity
-            android:name="com.main.letschat.Login"
+            android:name="com.main.letschat.LoginActivity"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
-            android:name="com.main.letschat.Chat"
+            android:name="com.main.letschat.ChatActivity"
             android:label="@string/title_activity_chat" >
         </activity>
         <activity
-            android:name="com.main.letschat.Exit"
+            android:name="com.main.letschat.ExitActivity"
             android:theme="@style/MyDialogStyle" >
         </activity>
         <activity
-            android:name="com.main.letschat.Friendlist"
+            android:name="com.main.letschat.FriendlistActivity"
             android:label="@string/title_activity_friendlist"
             android:parentActivityName="android.app.ListActivity" >
             <meta-data
@@ -42,11 +42,11 @@
                 android:value="android.app.ListActivity" />
         </activity>
         <activity
-            android:name="com.main.letschat.LogoutAct"
+            android:name="com.main.letschat.LogoutActivity"
             android:theme="@style/MyDialogStyle" >
         </activity>
         <activity
-            android:name="com.main.letschat.FirstActivity"
+            android:name="com.main.letschat.WelcomeActivity"
             android:label="@string/app_name"
             android:theme="@style/Anim_style2" >
             <intent-filter>
@@ -56,7 +56,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.main.letschat.RegistActivity"
+            android:name="com.main.letschat.RegisterActivity"
             android:theme="@style/Anim_style2" >
         </activity>
         <activity

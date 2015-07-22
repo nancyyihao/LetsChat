@@ -23,7 +23,7 @@ import android.util.Log;
  */
 public class myDBHelper extends SQLiteOpenHelper {
 	
-	private List<oneMsg> list = new ArrayList<oneMsg>();
+	private List<oneMsg> list = new ArrayList<oneMsg>(); //存放聊天记录
 	public static final String DataBaseName ="chatHistory" ;
 
 	public myDBHelper(Context context, String name, CursorFactory factory,
@@ -33,7 +33,8 @@ public class myDBHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String sql = " CREATE TABLE if not exists message_table(chatFrom text,chatTo text,chatDate text,chatContent text,chatDir text)" ;
+		String sql = " CREATE TABLE if not exists message_table" +
+				"(chatFrom text,chatTo text,chatDate text,chatContent text,chatDir text)" ;
 		db.execSQL(sql) ;
 	}
 
@@ -45,10 +46,11 @@ public class myDBHelper extends SQLiteOpenHelper {
 	/**删除聊天记录
 	 * @param tableName 把tableName表清空 
 	 */
-	public void deleteRecord(String tableName){
+	public void deleteRecord(String tableName ) {
+		
 		SQLiteDatabase db = this.getWritableDatabase();
         String sql = "delete from " + tableName;
-        //String sql2 = "drop table if exists "+ tableName ;
+        
         try {
             db.execSQL(sql);
         } catch (SQLException e) {
@@ -61,7 +63,7 @@ public class myDBHelper extends SQLiteOpenHelper {
 	 * @param to	接收者
 	 * @return
 	 */
-	public List<oneMsg> getChatRecord(String from,String to){
+	public List<oneMsg> getChatRecord(String from,String to) {
 		
 		list.clear() ;
 		String user="";
@@ -69,28 +71,29 @@ public class myDBHelper extends SQLiteOpenHelper {
 		String date="";
 		String content="";
 		String dir = "" ;
+		
 		SQLiteDatabase db=this.getReadableDatabase();
 		String sql="select chatFrom,chatTo,chatDate,chatContent,chatDir from message_table where " +
 				"(chatFrom=? and chatTo=?) or (chatFrom=? and chatTo=?) order by chatDate";
-		Cursor c = db.rawQuery(sql,new String[]{from,to});
-		while(c.moveToNext()){
-			user=c.getString(0);
-			toWhom = c.getString(1) ;
-			date=c.getString(2);
-			content=c.getString(3);
-			dir = c.getString(4) ;
-			Log.v("user", user);	
-			Log.v("date", date);
-			Log.v("content", content);
+		Cursor cursor = db.rawQuery(sql,new String[]{from,to});
+		
+		while (cursor.moveToNext()) {
+			
+			user=cursor.getString(0);
+			toWhom = cursor.getString(1) ;
+			date=cursor.getString(2);
+			content=cursor.getString(3);
+			dir = cursor.getString(4) ;
+
 			list.add( new oneMsg(from,to, date, content, dir) ) ;
 		}
 		return list ;
 	}
 	
-	/**加入一条消息
+	/**加入一条消息到数据库中
 	 * @param chatMsg
 	 */
-	public void addOneMsg(oneMsg chatMsg){
+	public void addOneMsg(oneMsg chatMsg) {
 		
 		SQLiteDatabase db=this.getWritableDatabase() ;
 		String sql1="insert into message_table(chatFrom,chatTo,chatDate,chatContent,chatDir) values(?,?,?,?,?)"; 
@@ -102,25 +105,30 @@ public class myDBHelper extends SQLiteOpenHelper {
 	 * @return
 	 */
 	public boolean tabbleIsExist(String tableName){
+		
         boolean result = false;
-        if(tableName == null){
+        
+        if (tableName == null) {
+        	
                 return false;
         }
+        
         SQLiteDatabase db = null;
         Cursor cursor = null;
+        
         try {
                 db = this.getReadableDatabase();
                 String sql = "select count(*) as c from "+DataBaseName+" where type ='table' and name ='"+tableName.trim()+"' ";
                 cursor = db.rawQuery(sql, null);
-                if(cursor.moveToNext()){
+                if (cursor.moveToNext()) {
                         int count = cursor.getInt(0);
-                        if(count>0){
+                        if (count>0) {
                                 result = true;
                         }
                 }
                 
         } catch (Exception e) {
-                // TODO: handle exception
+                
         }               
         return result;
 	}

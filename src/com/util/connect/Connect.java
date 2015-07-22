@@ -25,13 +25,13 @@ import android.util.Log;
 
 
 
-/**
+/**用来管理连接的类
  * @author jumper
  *
  */
 public class Connect {
 	
-	private static String SERVER_HOST = "10.205.18.135" ;       //服务器IP
+	private static String SERVER_HOST = "10.205.18.181" ;       //服务器IP
 	private static int SERVER_PORT = 5222 ;						//服务器连接端口
 	private static XMPPConnection connection = null ;
 	public static Connect uniqueInstance = null ;
@@ -41,18 +41,19 @@ public class Connect {
 	private Connect(){
 	}
 	
-	public static Connect getInstance(){
-		if (null == uniqueInstance){
+	public static Connect getInstance() {
+		
+		if (null == uniqueInstance) {
 			uniqueInstance = new Connect();
 		}
 		return uniqueInstance ;
 	}
 	
-	public static XMPPConnection getConnection(){
+	public static XMPPConnection getConnection() {
 		return connection ;
 	}
 	
-	public boolean connectServer(){
+	public boolean connectServer() {
 		
 		ConnectionConfiguration config = 
 				new ConnectionConfiguration(SERVER_HOST,SERVER_PORT) ;      
@@ -79,7 +80,7 @@ public class Connect {
 	 * @param password
 	 * @return
 	 */
-	public boolean Login(String user,String password){
+	public boolean Login(String user,String password) {
 		
 		if (null == connection)
 			return false ;
@@ -100,28 +101,33 @@ public class Connect {
 	}
 	
 	/**
-	 * ע��
+	 * 
 	 * 
 	 * @param account 
 	 * @param password 
 	 * @return 1  成功 0 失败 2 用户已存在 3 有错误
 	 */
 	public String regist(String account, String password) {
+		
 		Registration reg = new Registration();
         reg.setType(IQ.Type.SET);
         reg.setTo(connection.getServiceName());
         reg.setUsername(account);
         reg.setPassword(password);
+        
         reg.addAttribute("android", "geolo_createUser_android");
         System.out.println("reg:" + reg);
+        
         PacketFilter filter = new AndFilter(new PacketIDFilter(reg
                 .getPacketID()), new PacketTypeFilter(IQ.class));
+        
         PacketCollector collector = connection
                 .createPacketCollector(filter);
         connection.sendPacket(reg);
         
         IQ result = (IQ) collector.nextResult(SmackConfiguration
                 .getPacketReplyTimeout());
+        
         // Stop queuing results
         collector.cancel();
          if (result == null) {                                 
@@ -132,9 +138,8 @@ public class Connect {
         	return "1";
         }
          if (result.getType() == IQ.Type.ERROR) {		
-            if (result.getError().toString().equalsIgnoreCase( 
-                    "conflict(409)")) {
-            	 
+            if (result.getError().toString().
+            		equalsIgnoreCase("conflict(409)")) { 
             	return "2";
             } else {	
             	return "3";
@@ -190,7 +195,7 @@ public class Connect {
 	 * @param newPassword
 	 * @return
 	 */
-	public boolean changePassword(String newPassword){
+	public boolean changePassword(String newPassword) {
 		
 		try {
 			connection.getAccountManager().changePassword(newPassword);
@@ -201,18 +206,21 @@ public class Connect {
 		return true ;
 	}
 	
-	/** 用来获取所有用户
+	/** 用来获取所有好友
 	 * @return ArrayList<RosterEntry>
 	 */
 	public ArrayList<RosterEntry> getUsers() {
+		
 		ArrayList<RosterEntry> userList = new ArrayList<RosterEntry>(); 
-		if ( null != connection ){
+		if ( null != connection ) {
+			
 			Roster roster = connection.getRoster() ;
 			Collection<RosterGroup> entriesGroup = roster.getGroups() ; 
-			for ( RosterGroup group:entriesGroup ){
+			for ( RosterGroup group:entriesGroup ) {
+				
 				Collection<RosterEntry> entries = group.getEntries() ;
-				for (RosterEntry entry : entries){
-//					Log.i("TAG", "name: "  + entry.getName() ) ;
+				for (RosterEntry entry : entries) {
+					
 					userList.add( entry ) ;
 				}
 			}
