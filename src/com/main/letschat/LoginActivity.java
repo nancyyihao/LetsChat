@@ -4,30 +4,18 @@ package com.main.letschat;
 import com.util.connect.Connect;
 import com.util.exit.SysApplication;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -40,17 +28,25 @@ import android.widget.Toast;
  */
 public class LoginActivity extends Activity {
 
-    private String mUser; // 用户名
+    /**
+     * 用户名
+     */
+    private String mUser; 
 
-    private String mPassword; // 密码
+    /**
+     * 密码
+     */
+    private String mPassword; 
 
-    private LinearLayout loginStatus; // 登录状态layout
+    /**
+     * 登录状态layout
+     */
+    private LinearLayout mLoginStatus;  
 
-    private RelativeLayout loginForm; // 登录的整个layout，点击登录后就把它的状态设为GONE,达到切换的效果
-
-    private EditText textUser;
-
-    private EditText textPassword;
+    /**
+     * 登录的整个layout，点击登录后就把它的状态设为GONE,达到切换的效果
+     */
+    private RelativeLayout mLoginForm; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,43 +58,58 @@ public class LoginActivity extends Activity {
         // 每新生成一个activity，就加入到SysApplication中，要完全退出程序，就把它们全部kill掉
         SysApplication.getInstance().addActivity(this);
 
-        loginStatus = (LinearLayout)findViewById(R.id.login_status);
-        loginForm = (RelativeLayout)findViewById(R.id.login_form);
-
-        // 给登录按钮添加监听事件
-        findViewById(R.id.login_login_btn).setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                mUser = ((EditText)findViewById(R.id.login_user_edit)).getText().toString();
-                mPassword = ((EditText)findViewById(R.id.login_passwd_edit)).getText().toString();
-
-                // 因为连接服务器和登录比较耗时间，所以用多线程，异步处理，防止UI阻塞
-                new Thread(doLogin).start();
-            }
-        });
-
-        // 给忘记密码按钮添加监听事件
-        findViewById(R.id.forget_passwd).setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(getApplicationContext(), "该功能尚未开发，请等待!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // 给左上角的返回键添加监听事件
-        findViewById(R.id.login_reback_btn).setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        mLoginStatus = (LinearLayout)findViewById(R.id.login_status);
+        mLoginForm = (RelativeLayout)findViewById(R.id.login_form);
+     
+        findViewById(R.id.login_login_btn).setOnClickListener(mOnLoginBtnClickListener);
+        findViewById(R.id.forget_passwd).setOnClickListener(mOnForgetBtnClickListener);
+        findViewById(R.id.login_reback_btn).setOnClickListener(mOnBackBtnClickListener);
     }
 
+    /**
+     * 点击登录按钮开始登陆
+     */
+    private OnClickListener mOnLoginBtnClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View view) {
+
+            mUser = ((EditText) findViewById(R.id.login_user_edit)).getText().toString();
+            mPassword = ((EditText) findViewById(R.id.login_passwd_edit)).getText().toString();
+
+            // 因为连接服务器和登录比较耗时间，所以用多线程，异步处理，防止UI阻塞
+            new Thread(doLogin).start();
+        }
+    } ;
+    
+    /**
+     * 点击按钮跳转到密码找回界面
+     */
+    private OnClickListener mOnForgetBtnClickListener = new OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+
+            Toast.makeText(getApplicationContext(), getResources().
+                    getString(R.string.unsupport), Toast.LENGTH_SHORT).show();
+        }
+    } ;
+    
+    /**
+     * 点击按钮返回
+     */
+    private OnClickListener mOnBackBtnClickListener = new OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            finish();
+        }
+    } ;
+    
+    /**
+     * 处理登录是否成功的消息
+     */
+    @SuppressLint("HandlerLeak") 
     Handler handler = new Handler() {
 
         @Override
@@ -106,25 +117,33 @@ public class LoginActivity extends Activity {
 
             switch (msg.what) {
                 case 1:
-                    loginForm.setVisibility(View.GONE); // 正在登陆
-                    loginStatus.setVisibility(View.VISIBLE);
+                    mLoginForm.setVisibility(View.GONE); // 正在登陆
+                    mLoginStatus.setVisibility(View.VISIBLE);
                     break;
+                    
                 case 2: // 登录失败
-                    loginForm.setVisibility(View.VISIBLE);
-                    loginStatus.setVisibility(View.GONE);
-                    Toast.makeText(LoginActivity.this, "登陆失败，请重试！", Toast.LENGTH_LONG).show();
+                    mLoginForm.setVisibility(View.VISIBLE);
+                    mLoginStatus.setVisibility(View.GONE);
+                    Toast.makeText(LoginActivity.this, getResources().
+                            getString(R.string.login_fail), Toast.LENGTH_LONG).show();
                     break;
+                    
                 case 3: // 登录成功
-                    Intent intent = new Intent(LoginActivity.this, FriendlistActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, 
+                            FriendlistActivity.class);
                     startActivity(intent);
                     finish();
                     break;
+                    
                 default:
                     break;
             }
         }
     };
 
+    /**
+     * 连接服务器和登录
+     */
     Runnable doLogin = new Runnable() {
 
         @Override

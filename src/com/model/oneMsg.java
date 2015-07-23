@@ -11,15 +11,30 @@ package com.model;
  */
 public class oneMsg {
 
-    private String uid; // 消息是由哪个用户发的
+    /**
+     * 消息是由哪个用户发的
+     */
+    private String uid;  
 
-    private String date; // 消息产生时间
+    /**
+     * 消息产生时间
+     */
+    private String date;  
 
-    private String msg; // 消息主体
+    /**
+     * 消息主体
+     */
+    private String msg;  
 
-    private String dir; // IN 表示消息进来，OUT表示消息发出去
+    /**
+     * IN 表示接收消息，OUT表示消息发出去
+     */
+    private String dir;  
 
-    private String toWhom; // 消息要发给谁
+    /**
+     * 消息要发给谁
+     */
+    private String toWhom; 
 
     public oneMsg() {
     }

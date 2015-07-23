@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 类功能描述：用来获取时间</br>
+ * 类功能描述：用来获取时间，生成不同的时间格式</br>
  * 
  * @author 王明献
  * @version 1.0 </p> 
@@ -13,6 +13,7 @@ import java.util.Date;
  * 修改备注：</br>
  */
 public class Timer {
+    
     private static SimpleDateFormat formatBuilder;
 
     public static String getDate(String format) {

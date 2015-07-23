@@ -4,8 +4,6 @@ package com.util.exit;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.main.letschat.R;
-
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -24,43 +22,52 @@ import android.media.SoundPool;
  */
 public class SysApplication extends Application {
 
-    private List<Activity> aList = new LinkedList<Activity>();
+    /**
+     * 存放所有启动的Activity
+     */
+    private List<Activity> mActivityList = new LinkedList<Activity>();
 
-    private static SysApplication instance;
+    /**
+     * 声音池，用来播放发送或接收消息时的短声音
+     */
+    private SoundPool mSoundPool; // 播放短声音
+    
+    private static SysApplication mInstance;
 
-    private SoundPool soundPool; // 播放短声音
-
-    public Context context;
+    public Context mContext;
 
     private SysApplication() {
-        soundPool = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);
+        mSoundPool = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);
     }
 
     public void setContext(Context context) {
 
-        this.context = context;
+        this.mContext = context;
     }
 
     public SoundPool getSoundResource() {
 
-        return this.soundPool;
+        return this.mSoundPool;
     }
 
     public synchronized static SysApplication getInstance() {
 
-        if (null == instance) {
-            instance = new SysApplication();
+        if (null == mInstance) {
+            mInstance = new SysApplication();
         }
-        return instance;
+        return mInstance;
     }
 
     public void addActivity(Activity act) {
-        aList.add(act);
+        mActivityList.add(act);
     }
 
+    /**
+     * (完全退出) 
+     */
     public void exit() {
         try {
-            for (Activity act : aList) {
+            for (Activity act : mActivityList) {
                 if (null != act) {
                     act.finish();
                 }

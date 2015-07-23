@@ -14,5 +14,13 @@
     <string name="title_activity_first">FirstActivity</string>
     <string name="title_activity_regist">RegistActivity</string>
     <string name="title_activity_add_user">AddUserActivity</string>
+    <string name="unsupport">该功能尚未实现，敬请期待!</string>
+    <string name="nothing">空空如也!</string>
+    <string name="delete_record_title">确定要删除所有聊天记录？</string>
+    <string name="delete_record_message">确定？</string>
+    <string name="delete_record_positive_button">是</string>
+    <string name="delete_record_negative_button">否</string>
+    <string name="login_fail">否</string>
+    <string name="comfirm_logout">确定退出登录？</string>
 
 </resources>

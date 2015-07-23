@@ -3,28 +3,19 @@ package com.main.letschat;
 
 import com.util.connect.Connect;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Toast;
-import android.os.Build;
 
 /**
  * 类功能描述：注册界面</br>
@@ -36,15 +27,30 @@ import android.os.Build;
  */
 public class RegisterActivity extends Activity {
 
-    private EditText userEdit; // 用来获取用户名
+    /**
+     * 用来获取用户名
+     */
+    private EditText mUserEdit;  
 
-    private EditText pswdEdit; // 用来获取用户密码
+    /**
+     * 用来获取用户密码
+     */
+    private EditText mPswdEdit;  
 
-    private String username;
+    /**
+     * 用户名
+     */
+    private String mUserName;
 
-    private String password;
+    /**
+     * 密码
+     */
+    private String mPassWord;
 
-    private Button button;
+    /**
+     * 注册按钮
+     */
+    private Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,26 +58,32 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.regist_activity);
 
-        button = (Button)findViewById(R.id.regist_btn);
+        mButton = (Button)findViewById(R.id.regist_btn);
 
-        button.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                userEdit = (EditText)findViewById(R.id.regist_user_edit);
-                pswdEdit = (EditText)findViewById(R.id.regist_passwd_edit);
-
-                username = userEdit.getText().toString();
-                password = userEdit.getText().toString();
-
-                // 多线程启动耗时（如登录，注册等）操作，避免UI阻塞
-                new Thread(doRegist).start();
-
-            }
-        });
+        mButton.setOnClickListener(mClickListener);
     }
+    
+    private OnClickListener mClickListener = new OnClickListener() {
 
+        @Override
+        public void onClick(View v) {
+
+            mUserEdit = (EditText)findViewById(R.id.regist_user_edit);
+            mPswdEdit = (EditText)findViewById(R.id.regist_passwd_edit);
+
+            mUserName = mUserEdit.getText().toString();
+            mPassWord = mUserEdit.getText().toString();
+
+            // 多线程启动耗时（如登录，注册等）操作，避免UI阻塞
+            new Thread(doRegist).start();
+
+        }
+    } ;
+    
+    /**
+     * 处理消息
+     */
+    @SuppressLint("HandlerLeak") 
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -99,6 +111,9 @@ public class RegisterActivity extends Activity {
         }
     };
 
+    /**
+     * 进行注册
+     */
     Runnable doRegist = new Runnable() {
 
         @Override
@@ -106,7 +121,7 @@ public class RegisterActivity extends Activity {
 
             if (Connect.getInstance().connectServer()) {
 
-                if (Connect.getInstance().regist(username, password).equals("SUCCESS")) {
+                if (Connect.getInstance().regist(mUserName, mPassWord).equals("SUCCESS")) {
                     Log.e("regist", "成功！");
                     handler.sendEmptyMessage(2);
                 } else {
@@ -118,7 +133,11 @@ public class RegisterActivity extends Activity {
         }
     };
 
-    public void regist_back(View v) { // 点击注册界面左上方返回键会触发这个事件
+    /**
+     * (点击注册界面左上方返回键会触发这个事件) 
+     * @param v
+     */
+    public void regist_back(View v) { 
 
         finish();
         Intent intent = new Intent(RegisterActivity.this, StartActivity.class);

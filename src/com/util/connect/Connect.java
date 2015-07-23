@@ -34,16 +34,31 @@ import android.util.Log;
  */
 public class Connect {
 
-    private static String SERVER_HOST = "172.18.216.6"; // 服务器IP
+    /**
+     * 服务器IP
+     */
+    private static String SERVER_HOST = "172.18.216.6"; 
 
-    private static int SERVER_PORT = 5222; // 服务器连接端口
+    /**
+     * 服务器连接端口
+     */
+    private static int SERVER_PORT = 5222;  
 
-    private static XMPPConnection connection = null;
+    /**
+     * 负责和服务器连接的connection
+     */
+    private  XMPPConnection connection = null;
 
     public static Connect uniqueInstance = null;   
 
+    /**
+     * 使用该用户名和服务器连接
+     */
     public static String USERNAME = "";
 
+    /**
+     * 使用该密码和服务器连接
+     */
     public static String PASSWORD = "";
 
     private Connect() {
@@ -57,7 +72,7 @@ public class Connect {
         return uniqueInstance;
     }
 
-    public static XMPPConnection getConnection() {
+    public  XMPPConnection getConnection() {
         return connection;
     }
 
@@ -68,7 +83,8 @@ public class Connect {
      */
     public boolean connectServer() {
 
-        ConnectionConfiguration config = new ConnectionConfiguration(SERVER_HOST, SERVER_PORT); // 新建一个连接配置
+        // 新建一个连接配置
+        ConnectionConfiguration config = new ConnectionConfiguration(SERVER_HOST, SERVER_PORT); 
 
         config.setSASLAuthenticationEnabled(false);
         config.setSecurityMode(SecurityMode.disabled);
@@ -79,11 +95,9 @@ public class Connect {
             connection.connect();
         } catch (XMPPException e) {
             e.printStackTrace();
-            Log.e("conserver", "连接失败" + e.toString());
             return false;
         }
-        Log.e("conserver", "连接成功");
-
+        
         // 设置为接受所有消息
         connection.getRoster().setSubscriptionMode(SubscriptionMode.accept_all);
         return true;
@@ -106,8 +120,8 @@ public class Connect {
             return false;
         try {
             connection.login(user, password);
-            this.USERNAME = user;
-            this.PASSWORD = password;
+            USERNAME = user;
+            PASSWORD = password;
         } catch (XMPPException e) {
             e.printStackTrace();
             return false;
@@ -224,14 +238,12 @@ public class Connect {
             }
 
             RosterEntry entry = roster.getEntry(userName);
-            Log.e("roster", roster.toString() + "roster");
 
             if (null != entry) {
 
                 roster.removeEntry(entry);
             } else {
 
-                Log.e("roster", userName + "   entry is null");
                 return false;
             }
 

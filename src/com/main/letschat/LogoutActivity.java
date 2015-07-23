@@ -2,23 +2,15 @@
 package com.main.letschat;
 
 import com.util.connect.Connect;
-import com.util.exit.SysApplication;
 
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import android.os.Build;
 
 /**
  * 类功能描述：退出登录</br>
@@ -30,24 +22,33 @@ import android.os.Build;
  */
 public class LogoutActivity extends Activity {
 
-    private LinearLayout layout; // 用本Activity模拟对话框
+    /**
+     * 用本Activity模拟对话框
+     */
+    private LinearLayout mLayout;  
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.logout_dialog);
 
-        layout = (LinearLayout)findViewById(R.id.logout_layout);
-        layout.setOnClickListener(new OnClickListener() {
+        mLayout = (LinearLayout)findViewById(R.id.logout_layout);
+        mLayout.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getApplicationContext(), "确定退出登录？", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.comfirm_logout), 
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+
+    /**
+     * (点击其他地方也退出) 
+     * @param v
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -55,11 +56,20 @@ public class LogoutActivity extends Activity {
         return true;
     }
 
-    public void logoutbutton1(View v) { // 否按钮对应的事件
+    /**
+     * (否按钮对应的事件) 
+     * @param v
+     */
+    public void logoutbutton1(View v) { 
         this.finish();
     }
 
-    public void logoutbutton0(View v) { // "是"按钮对应的事件
+    /**
+     * ("是"按钮对应的事件) 
+     * @param v
+     */
+    public void logoutbutton0(View v) { 
+        
         this.finish();
         Connect.getInstance().Logout();
         Intent intent = new Intent();

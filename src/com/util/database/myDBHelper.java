@@ -1,12 +1,8 @@
 
 package com.util.database;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import com.model.oneMsg;
@@ -17,8 +13,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Environment;
-import android.util.Log;
 
 /**
  * 类功能描述：DBO,数据库管理</br>
@@ -30,9 +24,15 @@ import android.util.Log;
  */
 public class myDBHelper extends SQLiteOpenHelper {
 
-    private List<oneMsg> list = new ArrayList<oneMsg>(); // 存放聊天记录
+    /**
+     *  存放聊天记录
+     */
+    private List<oneMsg> mList = new ArrayList<oneMsg>(); 
 
-    public static final String DataBaseName = "chatHistory";
+    /**
+     * 数据库名
+     */
+    public static final String DATABASENAME = "chatHistory";
 
     public myDBHelper(Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -80,9 +80,9 @@ public class myDBHelper extends SQLiteOpenHelper {
      */
     public List<oneMsg> getChatRecord(String from, String to) {
 
-        list.clear();
+        mList.clear();
         if (from == "" || to == "")
-            return list;
+            return mList;
 
         String date = "";
         String content = "";
@@ -98,15 +98,14 @@ public class myDBHelper extends SQLiteOpenHelper {
         });
 
         while (cursor.moveToNext()) {
-
             date = cursor.getString(2);
             content = cursor.getString(3);
             dir = cursor.getString(4);
-
-            list.add(new oneMsg(from, to, date, content, dir));
+            mList.add(new oneMsg(from, to, date, content, dir));
         }
         db.close();
-        return list;
+        
+        return mList;
     }
 
     /**

@@ -1,25 +1,15 @@
 
 package com.main.letschat;
 
-import java.io.DataOutputStream;
-
-import com.util.exit.SysApplication;
-
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.Toast;
-import android.os.Build;
+
+import com.util.exit.SysApplication;
 
 /**
  * 类功能描述：欢迎界面</br>
@@ -31,11 +21,21 @@ import android.os.Build;
  */
 public class StartActivity extends Activity {
 
-    private Button login_btn; // 登录按钮
+    /**
+     *  登录按钮
+     */
+    private Button mLoginBtn; 
 
-    private Button exit_btn; // 退出按钮
+    /**
+     * 退出按钮
+     */
+    private Button mExitBtn;  
 
-    private Button regist_btn; // 注册按钮
+    /**
+     * 注册按钮
+     */
+    private Button mRegistBtn; 
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,38 +46,49 @@ public class StartActivity extends Activity {
         setContentView(R.layout.welcome_activity);
         SysApplication.getInstance().addActivity(this);
 
-        exit_btn = (Button)findViewById(R.id.main_exit_btn);
-        regist_btn = (Button)findViewById(R.id.main_regist_btn);
-        login_btn = (Button)findViewById(R.id.main_login_btn);
+        mExitBtn = (Button)findViewById(R.id.main_exit_btn);
+        mRegistBtn = (Button)findViewById(R.id.main_regist_btn);
+        mLoginBtn = (Button)findViewById(R.id.main_login_btn);
 
-        login_btn.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(StartActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        regist_btn.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(StartActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        exit_btn.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // 完全退出程序
-                SysApplication.getInstance().exit();
-            }
-        });
+        mLoginBtn.setOnClickListener(mOnLoginBtnClickListener);
+        mRegistBtn.setOnClickListener(mOnRegistBtnClickListener);
+        mExitBtn.setOnClickListener(mOnExitBtnClickListener);
     }
+    
+    /**
+     * 点击按钮登录
+     */
+    private OnClickListener mOnLoginBtnClickListener = new OnClickListener() {
 
+        @Override
+        public void onClick(View v) {
+
+            Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+    };
+    
+    /**
+     * 点击按钮注册
+     */
+    private OnClickListener mOnRegistBtnClickListener = new OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+
+            Intent intent = new Intent(StartActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        }
+    };
+    
+    /**
+     * 点击按钮完全退出程序
+     */
+    private OnClickListener mOnExitBtnClickListener = new OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            SysApplication.getInstance().exit();
+        }
+    } ;
 }

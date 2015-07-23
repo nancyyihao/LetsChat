@@ -25,9 +25,9 @@
     </style>
     
      <style name="AnimFade" parent="@android:style/Animation.Activity">  
-    	<item name="android:activityOpenEnterAnimation">@anim/fade_in</item>     
-    	<item name="android:activityCloseEnterAnimation">@anim/fade_in</item>  
-    	<item name="android:activityCloseExitAnimation">@anim/fade_out</item> 
+    	<item name="android:activityOpenEnterAnimation">@anim/activity_anim_fade_in_interpolator</item>     
+    	<item name="android:activityCloseEnterAnimation">@anim/activity_anim_fade_in_interpolator</item>  
+    	<item name="android:activityCloseExitAnimation">@anim/activity_anim_fade_out_interpolator</item> 
 	</style>
     
     <style name="Anim_style2" parent="android:Theme.NoTitleBar">         
