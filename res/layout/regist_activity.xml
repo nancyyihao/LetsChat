@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#eee"
+    android:orientation="vertical" 
+    android:gravity="center_horizontal"
+    android:visibility="visible">
+    
+    <RelativeLayout 
+        android:id="@+id/regist_top_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/title_bar">
+        <Button
+            android:id="@+id/regist_reback_btn"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="返回"
+            android:textSize="14sp"
+            android:textColor="#fff"
+            android:onClick="regist_back"
+            android:background="@drawable/title_btn_back"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:text="注册"
+           />     
+    </RelativeLayout>
+
+	<EditText
+	    android:id="@+id/regist_user_edit"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginLeft="30dp"
+	    android:layout_marginRight="30dp"
+	    android:layout_below="@+id/regist_top_layout"
+	    android:layout_marginTop="64dp"
+	    android:background="@drawable/login_editbox"
+	    android:ems="10"
+	    android:hint="用户名"
+	    android:singleLine="true"
+	    android:textColor="#000"
+	    android:textSize="15sp" />
+
+	<EditText
+	    android:id="@+id/regist_passwd_edit"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginLeft="30dp"
+	    android:layout_marginRight="30dp"
+	    android:layout_below="@+id/regist_user_edit"
+	    android:layout_marginTop="32dp"
+	    android:background="@drawable/login_editbox"
+	    android:ems="10"
+	    android:hint="密码"
+	    android:password="true"
+	    android:singleLine="true"
+	    android:textColor="#000"
+	    android:textSize="15sp" />
+
+	<Button
+	    android:id="@+id/regist_btn"
+	    android:layout_width="match_parent"
+	    android:layout_height="40dp"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginLeft="30dp"
+	    android:layout_marginRight="30dp"
+	    android:layout_below="@+id/regist_passwd_edit"
+	    android:layout_marginTop="53dp"
+	    android:background="@drawable/btn_style_green"
+	    android:text="注册"
+	    android:textColor="#ffffff"
+	    android:textSize="18sp" />
+
+</RelativeLayout>

@@ -3,7 +3,7 @@
     android:id="@+id/logout_layout"
     android:layout_width="280dp"
     android:layout_height="230dp"
-    android:background="@drawable/confirm_dialog_bg2"
+    android:background="@drawable/exit_dialog_ic_bg2"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
