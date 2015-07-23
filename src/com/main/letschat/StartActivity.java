@@ -20,13 +20,20 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.os.Build;
 
-/**欢迎界面
- * @author jumper
+/**
+ * 类功能描述：欢迎界面</br>
  *
+ * @author 王明献
+ * @version 1.0
+ * </p>
+ * 修改时间：</br>
+ * 修改备注：</br>
  */
 public class StartActivity extends Activity {
 	
-	private Button login_btn,exit_btn,regist_btn ;
+	private Button login_btn ;     //登录按钮
+	private Button exit_btn ;      //退出按钮
+	private Button regist_btn ;    //注册按钮
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +72,7 @@ public class StartActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				
+				                            //完全退出程序
 				SysApplication.getInstance().exit() ;	
 			}
 		}) ;

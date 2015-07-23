@@ -29,17 +29,23 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**登陆界面
- * @author jumper
+
+/**
+ * 类功能描述：登录Controller</br>
  *
+ * @author 王明献
+ * @version 1.0
+ * </p>
+ * 修改时间：</br>
+ * 修改备注：</br>
  */
 public class LoginActivity extends Activity {
 
-	private String mUser ;
-	private String mPassword ;
-	private LinearLayout loginStatus ;
-	private RelativeLayout loginForm ;
-	private EditText textUser ;
+	private String mUser ;         //用户名
+	private String mPassword ;     //密码
+	private LinearLayout loginStatus ; //登录状态layout
+	private RelativeLayout loginForm ; //登录的整个layout，点击登录后就把它的状态设为GONE,达到切换的效果
+	private EditText textUser ;        
 	private EditText textPassword ;
 	
 	@Override
@@ -48,56 +54,67 @@ public class LoginActivity extends Activity {
 
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.login);
-		SysApplication.getInstance().addActivity(this); 
+		
+		//每新生成一个activity，就加入到SysApplication中，要完全退出程序，就把它们全部kill掉
+		SysApplication.getInstance().addActivity(this);   
 			
 		loginStatus = (LinearLayout)findViewById(R.id.login_status);
 		loginForm = (RelativeLayout) findViewById(R.id.login_form);
 		
+		//给登录按钮添加监听事件
 		findViewById(R.id.login_login_btn).setOnClickListener(
 				new View.OnClickListener() {
+				    
 					@Override
 					public void onClick(View view) {
-						mUser = ((EditText)findViewById(R.id.login_user_edit)).getText().toString();
-						mPassword = ((EditText)findViewById(R.id.login_passwd_edit)).getText().toString(); 
+					    
+						mUser = ((EditText) findViewById(R.id.login_user_edit)).getText().toString();
+						mPassword = ((EditText) findViewById(R.id.login_passwd_edit)).getText().toString();
+						
+						//因为连接服务器和登录比较耗时间，所以用多线程，异步处理，防止UI阻塞
 						new Thread(doLogin).start();
 					}
 				});
 		
+		//给忘记密码按钮添加监听事件
 		findViewById(R.id.forget_passwd).setOnClickListener( 
 				new OnClickListener() {
 			
 					@Override
 					public void onClick(View v) {
-						Toast.makeText(getApplicationContext(), "该功能尚未开发，请等待!", Toast.LENGTH_SHORT).show() ;
-						//finish() ;
+					    
+						Toast.makeText(getApplicationContext(), 
+						        "该功能尚未开发，请等待!", Toast.LENGTH_SHORT).show() ;
 					}
 		}) ;
 		
+		//给左上角的返回键添加监听事件
 		findViewById(R.id.login_reback_btn).setOnClickListener( 
 				new OnClickListener() {
 			
 					@Override
 					public void onClick(View v) {
-						//Toast.makeText(getApplicationContext(), "该功能尚未开发，请等待!", Toast.LENGTH_SHORT).show() ;
 						finish() ;
 					}
 		}) ;
 	}
 
 	Handler handler = new Handler() {  
+	    
 	    @Override  
 	    public void handleMessage(Message msg) {  
+	        
 	    	switch (msg.what) {
 			case 1:
-					loginForm.setVisibility(View.GONE);
+					loginForm.setVisibility(View.GONE);        //正在登陆
 					loginStatus.setVisibility(View.VISIBLE);
 				break;
-			case 2:													//login fail
+			case 2:													//登录失败
 					loginForm.setVisibility(View.VISIBLE);
 					loginStatus.setVisibility(View.GONE);	
 					Toast.makeText(LoginActivity.this, "登陆失败，请重试！", Toast.LENGTH_LONG).show();
 	        	break;
-			case 3:													//login success
+			case 3:													//登录成功
 					Intent intent = new Intent(LoginActivity.this,FriendlistActivity.class);
 					startActivity(intent);  
 					finish();
@@ -107,15 +124,16 @@ public class LoginActivity extends Activity {
 			}
 	    }  
 	};  
-	Runnable doLogin = new Runnable() {
+	
+	Runnable doLogin = new Runnable() {    
 		
 		@Override
 		public void run() {
 			
 			handler.sendEmptyMessage(1);
-			if ( Connect.getInstance().connectServer() ) {
+			if ( Connect.getInstance().connectServer() ) {   //能连上服务器
 				
-				if (Connect.getInstance().Login(mUser, mPassword))
+				if (Connect.getInstance().Login(mUser, mPassword))  //登录
 					handler.sendEmptyMessage(3);
 				else	
 					handler.sendEmptyMessage(2);

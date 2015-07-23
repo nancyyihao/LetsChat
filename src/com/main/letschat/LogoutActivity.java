@@ -19,13 +19,19 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.os.Build;
 
-/**登出
- * @author jumper
+
+/**
+ * 类功能描述：退出登录</br>
  *
+ * @author 王明献
+ * @version 1.0
+ * </p>
+ * 修改时间：</br>
+ * 修改备注：</br>
  */
 public class LogoutActivity extends Activity {
 	
-	private LinearLayout layout;
+	private LinearLayout layout;    //用本Activity模拟对话框
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,15 +50,16 @@ public class LogoutActivity extends Activity {
 	}
 	
 	@Override
-	public boolean onTouchEvent(MotionEvent event){
+	public boolean onTouchEvent(MotionEvent event) {
+	                                       
 		finish();
 		return true;
 	}
 	
-	public void logoutbutton1(View v) {  
+	public void logoutbutton1(View v) {    //否按钮对应的事件
     	this.finish();    	
       }  
-	public void logoutbutton0(View v) {  
+	public void logoutbutton0(View v) {     //"是"按钮对应的事件 
     	this.finish();
     	Connect.getInstance().Logout() ;
     	Intent intent = new Intent();

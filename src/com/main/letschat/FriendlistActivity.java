@@ -55,19 +55,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Build;
 
-/**朋友列表，用户登陆成功后就会跳转到这里
- * @author jumper
+/**
+ * 类功能描述：朋友列表，用户登陆成功后就会跳转到这里</br>
  *
+ * @author 王明献
+ * @version 1.0
+ * </p>
+ * 修改时间：</br>
+ * 修改备注：</br>
  */
 public class FriendlistActivity extends Activity {
 
-	private List<Map<String,Object>> data =  new ArrayList<Map<String,Object>>();
-	private List<RosterEntry> userList = new ArrayList<RosterEntry>() ;  
-	private ListView mlist ;
-	private ListView menulist ;
-	private ListView firendslist  ;
-	private BaseAdapter friendAdapter ;
-	private org.jivesoftware.smack.Chat chat ;
+	private List<Map<String,Object>> data =  
+	        new ArrayList<Map<String,Object>>();   //填充朋友的ListView的数据源
+	
+	private List<RosterEntry> userList = 
+	        new ArrayList<RosterEntry>() ;         //保存所有好友信息
+	           
+	private ListView menulist ;                    //侧滑菜单ListView
+	private ListView firendsList  ;                //朋友列表的ListView
+	private BaseAdapter friendAdapter ;            //朋友列表的数据适配器
+	private org.jivesoftware.smack.Chat chat ;     //聊天管理
 	
 	private static String[] words = new String[]{"哥只是个传说.",
 												"哥只是个传说.",
@@ -141,14 +149,14 @@ public class FriendlistActivity extends Activity {
 		SysApplication.getInstance().addActivity(this); 
 		SysApplication.getInstance().getSoundResource().load(this,R.raw.recv,1);
 				
-		getData() ;
+		getData() ;   //获取好友列表
 		friendAdapter = new friendListAdapter(this) ;
-		firendslist = (ListView) findViewById(R.id.list) ;
-		firendslist.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-		firendslist.setAdapter(friendAdapter) ;
+		firendsList = (ListView) findViewById(R.id.list) ;
+		firendsList.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+		firendsList.setAdapter(friendAdapter) ;
 		
 		//设置监听，点击后就跳转聊天界面和该好友聊天
-		firendslist.setOnItemClickListener(new OnItemClickListener() {
+		firendsList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -161,23 +169,24 @@ public class FriendlistActivity extends Activity {
 			}
 		});
 			
-		// 添加侧滑按钮菜单
+		// 添加侧滑按钮菜单，并设置相应属性
 		com.slidingmenu.lib.SlidingMenu menu = new com.slidingmenu.lib.SlidingMenu( this);
 	     menu.setMode(com.slidingmenu.lib.SlidingMenu.LEFT);
 	     menu.setTouchModeAbove(com.slidingmenu.lib.SlidingMenu.TOUCHMODE_FULLSCREEN );
-	     menu.setShadowWidthRes(R.dimen.shadow_width);        // 1
-	     menu.setShadowDrawable(R.drawable.shadow);           // 2
-	     menu.setBehindOffsetRes(R.dimen.slidingmenu_offset ); // 3
+	     menu.setShadowWidthRes(R.dimen.shadow_width);        
+	     menu.setShadowDrawable(R.drawable.shadow);           
+	     menu.setBehindOffsetRes(R.dimen.slidingmenu_offset ); 
 	     menu.setFadeDegree(0.35f);
 	     menu.attachToActivity( this, com.slidingmenu.lib.SlidingMenu.SLIDING_CONTENT );
-	     menu.setMenu(R.layout.menu_list); 						// 4
+	     menu.setMenu(R.layout.menu_list); 						
 	     
 	     menulist = (ListView) findViewById(R.id.menu) ;
+	     
 		 String[] data = {"个人信息","管理好友","删除记录","意见反馈","登出","退出"};
 		 menulist.setAdapter(new ArrayAdapter(this,android.R.layout.simple_list_item_1,data) ) ;
 		 menulist.setOnItemClickListener(new OnItemClickListener() {
 			 
-			 //TO-DO 				添加相应的功能.
+		     //这里的0,1,2...是和data[]数组相对应的
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -188,11 +197,12 @@ public class FriendlistActivity extends Activity {
 						case 1:
 							Toast.makeText(getApplicationContext(), "该功能尚未实现，敬请期待!", Toast.LENGTH_SHORT).show() ;
 							break ;
-						case 2:
+						case 2:  
+						        //删除聊天记录的对话框
 								new AlertDialog.Builder(FriendlistActivity.this)
-								.setTitle("确定要删除所有聊天记录？")
-								.setMessage("确定？")
-								.setPositiveButton("是", new OnClickListener() {	
+								.setTitle("确定要删除所有聊天记录？")                   //对话框的标题
+								.setMessage("确定？")                              //对话框的消息
+								.setPositiveButton("是", new OnClickListener() {	 //为"是"按钮添加监听事件
 									
 									@Override
 									public void onClick(DialogInterface dialog, int which) {

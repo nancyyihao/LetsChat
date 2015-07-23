@@ -25,15 +25,20 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 import android.os.Build;
 
-/**注册界面
- * @author jumper
+/**
+ * 类功能描述：注册界面</br>
  *
+ * @author 王明献
+ * @version 1.0
+ * </p>
+ * 修改时间：</br>
+ * 修改备注：</br>
  */
 public class RegisterActivity extends Activity {
 
-	private EditText userEdit ;
-	private EditText pswdEdit ;
-	private String username ;
+	private EditText userEdit ;    //用来获取用户名
+	private EditText pswdEdit ;    //用来获取用户密码
+	private String username ;      
 	private String password ;
 	private Button button ;
 	
@@ -56,6 +61,7 @@ public class RegisterActivity extends Activity {
 				username = userEdit.getText().toString() ;
 				password = userEdit.getText().toString() ;
 				
+				//多线程启动耗时（如登录，注册等）操作，避免UI阻塞
 				new Thread( doRegist ).start() ;
 				
 			}
@@ -66,13 +72,17 @@ public class RegisterActivity extends Activity {
 	    @Override  
 	    public void handleMessage(Message msg) {  
 	    	switch (msg.what) {
-			case 1:																//注册失败
-					Toast toast = Toast.makeText(RegisterActivity.this, "注册失败，请稍候再试!", Toast.LENGTH_LONG) ;
+			case 1:										//注册失败
+					Toast toast = Toast.makeText(RegisterActivity.this, 
+					        "注册失败，请稍候再试!", Toast.LENGTH_LONG) ;
+					
 					toast.setGravity(Gravity.CENTER,0,0);
 					toast.show() ;
 				break;			
-			case 2:																//注册成功
-					Toast toast2 = Toast.makeText(RegisterActivity.this, "注册成功，请登录!", Toast.LENGTH_LONG) ;
+			case 2:										//注册成功，跳转到登陆界面
+					Toast toast2 = Toast.makeText(RegisterActivity.this, 
+					        "注册成功，请登录!", Toast.LENGTH_LONG) ;
+					
 					toast2.setGravity(Gravity.CENTER,0,0);
 					toast2.show() ;
 					Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
@@ -90,20 +100,21 @@ public class RegisterActivity extends Activity {
 		@Override
 		public void run() {
 			
-			if ( Connect.getInstance().connectServer() ){
-				if ( Connect.getInstance().regist(username, password).equals("1") ){
+			if ( Connect.getInstance().connectServer() ) {
+			    
+				if ( Connect.getInstance().regist(username, password).equals("SUCCESS") ) {
 						Log.e("regist", "成功！") ;
 						handler.sendEmptyMessage(2);
-					}else{
+					} else {
 						handler.sendEmptyMessage(1);
 					}
-			}else{
+			} else {
 				handler.sendEmptyMessage(1);
 			}
 		}
 	};
 	
-	public void regist_back(View v) {
+	public void regist_back(View v) {      //点击注册界面左上方返回键会触发这个事件
 		
 		finish() ;
 		Intent intent = new Intent(RegisterActivity.this,StartActivity.class);

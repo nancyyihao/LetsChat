@@ -22,6 +22,7 @@ public class WelcomeActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+	    
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_first);
 		new Handler().postDelayed(new Runnable() {
@@ -32,6 +33,6 @@ public class WelcomeActivity extends Activity {
 				startActivity(intent);			
 				WelcomeActivity.this.finish();			
 			}
-		}, 2000) ;
+		}, 2000) ;   //延迟2000ms,就是2秒后跳转到StartActivity
 	}
 }

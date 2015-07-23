@@ -67,8 +67,7 @@ public final class R {
         public static final int shadow=0x7f020023;
         public static final int title_bar=0x7f020024;
         public static final int title_btn_back=0x7f020025;
-        public static final int wechat=0x7f020026;
-        public static final int welcome=0x7f020027;
+        public static final int welcome=0x7f020026;
     }
     public static final class id {
         public static final int ChatLayout=0x7f0a0000;

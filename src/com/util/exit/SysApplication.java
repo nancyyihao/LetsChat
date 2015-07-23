@@ -23,8 +23,7 @@ public class SysApplication extends Application {
 	public Context context ;
 	
 	private SysApplication() {
-		soundPool= new SoundPool(10,AudioManager.STREAM_SYSTEM,5);
-		//soundPool.load(context,R.raw.recv,1);
+		soundPool = new SoundPool(10,AudioManager.STREAM_SYSTEM,5);
 	}
 	
 	public void setContext(Context context) {
@@ -38,7 +37,8 @@ public class SysApplication extends Application {
 	}
 	
 	public synchronized static SysApplication getInstance() {
-		if (null == instance){
+	    
+		if (null == instance) {
 			instance = new SysApplication() ;
 		}
 		return instance ;

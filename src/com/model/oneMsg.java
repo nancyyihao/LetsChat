@@ -1,12 +1,21 @@
 package com.model;
 
+/**
+ * 类功能描述：表示一条消息</br>
+ *
+ * @author 王明献
+ * @version 1.0
+ * </p>
+ * 修改时间：</br>
+ * 修改备注：</br>
+ */
 public class oneMsg {
 	
-	private String uid ;
-	private String date ;
-	private String msg ;
-	private String dir ;     //IN 表示消息进来，OUT表示消息发出去
-	private String toWhom ; 
+	private String uid ;       //消息是由哪个用户发的
+	private String date ;      //消息产生时间
+	private String msg ;       //消息主体
+	private String dir ;       //IN 表示消息进来，OUT表示消息发出去
+	private String toWhom ;    //消息要发给谁
 	
 	public oneMsg() {
 	}

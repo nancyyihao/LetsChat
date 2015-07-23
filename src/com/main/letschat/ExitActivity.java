@@ -12,6 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
+/**
+ * 类功能描述：退出</br>
+ *
+ * @author 王明献
+ * @version 1.0
+ * </p>
+ * 修改时间：</br>
+ * 修改备注：</br>
+ */
 public class ExitActivity extends Activity {
 
 	private LinearLayout layout;
@@ -34,15 +43,19 @@ public class ExitActivity extends Activity {
 	}
 
 	@Override
-	public boolean onTouchEvent(MotionEvent event){
+	public boolean onTouchEvent(MotionEvent event) { 
+	                //用activity模拟对话框,点其他地方就认为放弃，结束activity
 		finish();
 		return true;
 	}
 	
-	public void exitbutton1(View v) {  
+	public void exitbutton1(View v) {      //不退出
+	    
     	this.finish();    	
-      }  
-	public void exitbutton0(View v) {  
+      } 
+	
+	public void exitbutton0(View v) {  //完全退出程序
+	    
     	this.finish();
     	SysApplication.getInstance().exit() ;
       }  
